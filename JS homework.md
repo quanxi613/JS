@@ -136,7 +136,7 @@
 
 具体描述
 
-1. 实现一个方法 addClass，可以为某个DOM增加样式类
+(1). 实现一个方法 addClass，可以为某个DOM增加样式类
 
 例如：
 
@@ -148,7 +148,30 @@
 
 	<div id="a" class="class-a class-b class-c"></div>
 
-2. 实现一个方法 removeClass，可以为某个DOM删除样式类
+实现代码
+
+	function addClass(obj, sClass){
+
+		var reBlank = /^\s+|\s+$/g;
+		//去掉首尾空格
+		var str = sClass.replace(reBlank, '')
+		var sClassName = obj.className;
+		var re = new RegExp(sClassName, 'g');
+
+		if(sClassName != null){
+				
+			var str1 = re.test(str) ? str.replace(re, '') : str;
+			obj.className += " " + str1;
+
+			}
+
+		else{
+			obj.className = str;
+		}
+
+	}
+
+(2). 实现一个方法 removeClass，可以为某个DOM删除样式类
 
 	<div id="a" class="class-a class-b class-c"></div>
 	removeClass(document.getElementById("a"), "class-a class-c");
