@@ -241,7 +241,6 @@ URL为http://localhost/index.html#test/a/b时，执行test(a, b)
 			var str = url.substring(url.indexOf("#")+1);
 			var aStr = str.split("\/");
 			var fnName = aStr.shift();
-			var sArgument = aStr.join(",");
 			var str1="";
 
 			if (aStr != '') {
