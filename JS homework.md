@@ -243,7 +243,12 @@ URL为http://localhost/index.html#test/a/b时，执行test(a, b)
 			var fnName = aStr.shift();
 			var sArgument = aStr.join(",");
 
-			eval(fnName+".call(null, "+sArgument+")");
+			if (sArgument != '') {
+
+				eval(fnName+".call(null, "+sArgument+")");
+			}
+
+			else eval(fnName+"()");
 
 		}
 
