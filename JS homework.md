@@ -49,7 +49,10 @@
 
 实现代码：
 
+	
 	function clone(obj){
+
+		if (obj instanceof Object) {
 
 			var o = obj instanceof Array ? [] : {};
 
@@ -61,12 +64,21 @@
 
 				}
 
-				else {
+				else{
+
 					o[i] = obj[i];
-				}
-			}		
-			return o;
-		}
+
+					}
+				}	
+
+			}			
+
+		else{
+				o = obj;
+			}
+			
+		return o;
+	}
 
 2.实现一个简单的DOM选择器
 
