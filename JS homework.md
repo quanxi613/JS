@@ -112,7 +112,8 @@
 		//去掉首尾空格
 		var str1 = str.replace(reBlank, '').replace(/\#|\./g, '');
 		var re1 = /^#/;
-			
+		var rTemp;
+		var aList = str1.split(/\s+/);			
 
 		if(re1.test(str)){
 
@@ -124,22 +125,34 @@
 		else{
 
 			var aEle = document.getElementsByTagName("body")[0].getElementsByTagName('*');
-			var re = new RegExp('\\b'+str1+'\\b', 'i');
+				
 
 			for (var i = 0, len = aEle.length; i < len; i++){
+
+				for(var j = 0, len1 = aList.length; j<len1; j++){
+
+					rTemp = new RegExp(aList[j],'g');
+
+					if(!rTemp.test(aEle[i].className)){
+						
+							break;
+					}	
+
+				}
 					
-				if(re.test(aEle[i].className)){
+			if(j == aList.length){
 
-					oDom.push(aEle[i]);
-
-				}					
+				oDom.push(aEle[i]);
 
 			}
+					
+
+		  }
 				
 
 		}
 
-		return oDom;
+			return oDom;
 
 	}
 
