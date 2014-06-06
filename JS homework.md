@@ -242,12 +242,22 @@ URL为http://localhost/index.html#test/a/b时，执行test(a, b)
 			var aStr = str.split("\/");
 			var fnName = aStr.shift();
 			var sArgument = aStr.join(",");
+			var str1="";
 
-			if (sArgument != '') {
+			if (aStr != '') {
 
-				eval(fnName+".call(null, "+sArgument+")");
+
+				for(var i=0, len=aStr.length; i<len; i++){
+
+					
+					str1 += ",\""+aStr[i]+"\"";
+					
+				}
+				var str2 = str1.substring(1);
+				eval(fnName+".call(null, "+str2+")");
+
+				
 			}
-
 			else eval(fnName+"()");
 
 		}
