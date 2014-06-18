@@ -71,64 +71,64 @@
 			}
 			
 
-				Selector.prototype.createSelect = function(){
+			Selector.prototype.createSelect = function(){
 
-					var sId = document.getElementById(this.selectId);
-					var uId = document.getElementById(this.ulId);
-					var options = sId.getElementsByTagName("option");
-					var warperId = document.getElementById(this.warper);
+				var sId = document.getElementById(this.selectId);
+				var uId = document.getElementById(this.ulId);
+				var options = sId.getElementsByTagName("option");
+				var warperId = document.getElementById(this.warper);
 
-					uId.innerHTML = sId.value;
+				uId.innerHTML = sId.value;
 
-					var ul = document.createElement("ul");
-					var _this = this;
-					for(var i=0, len=options.length; i<len; i++){
+				var ul = document.createElement("ul");
+				var _this = this;
+				for(var i=0, len=options.length; i<len; i++){
 
-						var li = document.createElement("li");
-						li.innerHTML = options[i].value;
+					var li = document.createElement("li");
+					li.innerHTML = options[i].value;
 
-						addHandler(li, "mouseover", function(event){
+					addHandler(li, "mouseover", function(event){
 
-							var target = event.target || event.srcElement;
-							target.className = _this.liHover;
-
-						});
-						addHandler(li, "mouseout", function(event){
-
-							var target = event.target || event.srcElement;
-							target.className = "";
-
-						});
-						addHandler(li, "click", function(event){
-
-							var target = event.target || event.srcElement;
-							sId.value = uId.innerHTML = target.innerHTML;
-
-							ul.style.display = "none";
-							var ev = event || window.event;
-                			stopPropagation(ev); 
-
-						});
-						ul.appendChild(li);
-
-					}
-
-					warperId.appendChild(ul);
-					ul.className = this.css;
-					
-					addHandler(uId, "click", function(event){
-
-						ul.style.display = "block";
-						var ev = event || window.event;
-                		stopPropagation(ev); 
+						var target = event.target || event.srcElement;
+						target.className = _this.liHover;
 
 					});
-					addHandler(window, "click", function(){
+					addHandler(li, "mouseout", function(event){
+
+						var target = event.target || event.srcElement;
+						target.className = "";
+
+					});
+					addHandler(li, "click", function(event){
+
+						var target = event.target || event.srcElement;
+						sId.value = uId.innerHTML = target.innerHTML;
 
 						ul.style.display = "none";
+						var ev = event || window.event;
+            			stopPropagation(ev); 
+
 					});
+					ul.appendChild(li);
 
 				}
+
+				warperId.appendChild(ul);
+				ul.className = this.css;
+				
+				addHandler(uId, "click", function(event){
+
+					ul.style.display = "block";
+					var ev = event || window.event;
+            		stopPropagation(ev); 
+
+				});
+				addHandler(window, "click", function(){
+
+					ul.style.display = "none";
+				});
+
+			}
 
 			
 
