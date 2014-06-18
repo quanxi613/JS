@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+		<title>test2</title>
+
+		<style type="text/css">
+			.box{ margin: 10px;}
+			#warper{ margin:20px; position:relative; width:100px; float: left;}
+			#warper ul{list-style:none; margin: 0; padding:0;}
+			#warper ul li{line-height:20px; cursor:pointer; margin:1px 0; font-size:12px; text-indent:5px;}
+			.inputbox{width:128px; height:23px; line-height:23px; background: #ccc url(images/slt.gif) no-repeat; border:none;  font-size:12px; text-indent:5px;}		
+			.listcss{ display:none;position:absolute;width:126px;left:0;top:22px;border:1px solid #ccc; background:#fff; }	
+			.hover{ background:#ccc; color:#fff;}		
+
+		</style>
+	</head>
+	<body>
+		<form action="#" method="get" >
+			<div class="box">
+			    <div id="warper">    
+			        <select id="select" style="display:none;">
+			            <option value="北京">北京</option>
+			            <option value="上海">上海</option>
+			            <option value="洛阳">洛阳</option>
+			            <option value="杭州">杭州</option>
+			        </select>
+			        <div class="inputbox" id = "input"></div>
+			    </div>
+			</div>
+		</form>
+		<script type="text/javascript">
+			
+			function Selector(obj){
+
+				this.selectId = obj.selectId;
+				this.ulId = obj.ulId;
+				this.css = obj.css;
+				this.liHover = obj.liCss;
+				this.warper = obj.warper;
+
+			}
+
+			function addHandler(element, type, handler){
+
+				if (element.addEventListener) {
+
+					element.addEventListener(type, handler, false);
+				}
+				else if (element.attachEvent){
+
+					element.attachEvent("on"+type, handler);
+
+				}
+				else{
+					element["on"+type] = handler;
+				}
+
+			}
+
+			function stopPropagation(event){
+
+				if ((event.stopPropagation)) {
+					event.stopPropagation();
+				}else{
+					event.cancelBubble = true;
+				}
+			}
+			
+
+				Selector.prototype.createSelect = function(){
+
+					var sId = document.getElementById(this.selectId);
+					var uId = document.getElementById(this.ulId);
+					var options = sId.getElementsByTagName("option");
+					var warperId = document.getElementById(this.warper);
+
+					uId.innerHTML = sId.value;
+
+					var ul = document.createElement("ul");
+					var _this = this;
+					for(var i=0, len=options.length; i<len; i++){
+
+						var li = document.createElement("li");
+						li.innerHTML = options[i].value;
+
+						addHandler(li, "mouseover", function(event){
+
+							var target = event.target || event.srcElement;
+							target.className = _this.liHover;
+
+						});
+						addHandler(li, "mouseout", function(event){
+
+							var target = event.target || event.srcElement;
+							target.className = "";
+
+						});
+						addHandler(li, "click", function(event){
+
+							var target = event.target || event.srcElement;
+							sId.value = uId.innerHTML = target.innerHTML;
+
+							ul.style.display = "none";
+							var ev = event || window.event;
+                			stopPropagation(ev); 
+
+						});
+						ul.appendChild(li);
+
+					}
+
+					warperId.appendChild(ul);
+					ul.className = this.css;
+					
+					addHandler(uId, "click", function(event){
+
+						ul.style.display = "block";
+						var ev = event || window.event;
+                		stopPropagation(ev); 
+
+					});
+					addHandler(window, "click", function(){
+
+						ul.style.display = "none";
+					});
+
+				}
+
+			
+
+			var oSelect = new Selector({
+
+				selectId:"select",
+				ulId:"input",
+				warper:"warper",
+				css:"listcss",
+				liCss:"hover"
+
+			});
+
+			oSelect.createSelect();
+		
+		</script>
+		
+		
+		
+	</body>
+</html>
